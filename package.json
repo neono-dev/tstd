@@ -1,0 +1,17 @@
+{
+  "name": "tstd",
+  "version": "0.0.1",
+  "description": "This is an opiniated standard library for TypeScript",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "std",
+    "typescript",
+    "javascript",
+    "result"
+  ],
+  "author": "Donovan Benfouzari <d.benfouzari@gmail.com>",
+  "license": "ISC"
+}
