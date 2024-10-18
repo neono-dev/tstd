@@ -13,5 +13,8 @@
     "result"
   ],
   "author": "Donovan Benfouzari <d.benfouzari@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  }
 }
