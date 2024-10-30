@@ -1,20 +1,24 @@
 {
-  "name": "tstd",
-  "version": "0.0.1",
-  "description": "This is an opiniated standard library for TypeScript",
-  "main": "dist/index.js",
-  "scripts": {
-    "test": "test"
-  },
-  "keywords": [
-    "std",
-    "typescript",
-    "javascript",
-    "result"
-  ],
-  "author": "Donovan Benfouzari <d.benfouzari@gmail.com>",
-  "license": "ISC",
-  "devDependencies": {
-    "typescript": "^5.6.3"
-  }
+    "name": "@neono/tstd",
+    "version": "0.0.1",
+    "description": "This is an opinionated standard library for TypeScript",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "test": "jest",
+        "build": "tsc"
+    },
+    "keywords": ["std", "typescript", "javascript", "result"],
+    "author": "Donovan Benfouzari <d.benfouzari@gmail.com>",
+    "license": "ISC",
+    "devDependencies": {
+        "@biomejs/biome": "^1.9.4",
+        "@jest/globals": "^29.7.0",
+        "jest": "^29.7.0",
+        "ts-jest": "^29.2.5",
+        "typescript": "^5.6.3"
+    },
+    "dependencies": {
+        "ts-pattern": "^5.5.0"
+    }
 }
