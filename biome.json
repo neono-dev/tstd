@@ -14,7 +14,7 @@
         "indentStyle": "space",
         "bracketSpacing": true,
         "lineEnding": "lf",
-        "lineWidth": 120,
+        "lineWidth": 90,
         "indentWidth": 2,
         "attributePosition": "auto",
         "formatWithErrors": true,

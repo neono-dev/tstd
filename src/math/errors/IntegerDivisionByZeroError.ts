@@ -1,3 +1,5 @@
 import { TaggedError } from "../../TaggedError";
 
-export class IntegerDivisionByZeroError extends TaggedError("IntegerDivisionByZeroError") {}
+export class IntegerDivisionByZeroError extends TaggedError(
+  "IntegerDivisionByZeroError",
+) {}

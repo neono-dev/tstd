@@ -1,10 +1,12 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { None, Some } from "./Option";
 import {
   Err,
   Ok,
   type Result,
   and,
   andThen,
+  err,
   expectErr,
   expect as expectResult,
   flatten,
@@ -18,6 +20,7 @@ import {
   mapErr,
   mapOr,
   mapOrElse,
+  ok,
   or,
   orElse,
   tryCatch,
@@ -46,12 +49,18 @@ describe("Result", () => {
       expect(pipe(result, andThen(addTen))).toStrictEqual(Ok(52));
     });
 
+    it("`err` should return a `None`", () => {
+      expect(err(result)).toBe(None);
+    });
+
     it("`expect` should return the value", () => {
       expect(pipe(result, expectResult("This should not panic"))).toBe(42);
     });
 
     it("`expectErr` should throw the error", () => {
-      expect(() => pipe(result, expectErr("This should panic"))).toThrow("This should panic");
+      expect(() => pipe(result, expectErr("This should panic"))).toThrow(
+        "This should panic",
+      );
     });
 
     it("`flatten` should return the value", () => {
@@ -168,6 +177,10 @@ describe("Result", () => {
       expect(pipe(result, mapOrElse(fnWhenErr, fnWhenOk))).toBe(21);
     });
 
+    it("`ok` should return a `Some` value", () => {
+      expect(ok(result)).toStrictEqual(Some(42));
+    });
+
     it("`or` should return the original result", () => {
       const other = Ok(0);
 
@@ -217,8 +230,14 @@ describe("Result", () => {
       expect(pipe(result, andThen(addTen))).toBe(result);
     });
 
+    it("`err` should return a `Some` result", () => {
+      expect(err(result)).toStrictEqual(Some("error"));
+    });
+
     it("`expect` should throw the error", () => {
-      expect(() => pipe(result, expectResult("This should panic"))).toThrow("This should panic");
+      expect(() => pipe(result, expectResult("This should panic"))).toThrow(
+        "This should panic",
+      );
     });
 
     it("`expectErr` should return the error", () => {
@@ -327,6 +346,10 @@ describe("Result", () => {
       pipe(result, mapOrElse(jest.fn(), fnWhenOk));
 
       expect(fnWhenOk).not.toHaveBeenCalled();
+    });
+
+    it("`ok` should return a `None`", () => {
+      expect(ok(result)).toBe(None);
     });
 
     it("`or` should return the other result", () => {

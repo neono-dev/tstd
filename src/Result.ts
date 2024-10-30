@@ -1,4 +1,5 @@
 import { match } from "ts-pattern";
+import { None, type Option, Some } from "./Option";
 import { UnknownException } from "./errors/UnknownException";
 
 export type Ok<T> = { _tag: "Ok"; value: T };
@@ -139,6 +140,16 @@ export const andThen =
     match(self)
       .with({ _tag: "Ok" }, ({ value }) => fn(value))
       .otherwise((error) => error);
+
+/**
+ * Converts from {@linkcode Result `Result<T, E>`} to {@linkcode Option `Option<E>`}.
+ *
+ * Converts `self` into an {@linkcode Option `Option<E>`}, discarding the success value, if any.
+ */
+export const err = <E>(self: Result<unknown, E>): Option<E> =>
+  match(self)
+    .with({ _tag: "Err" }, ({ error }) => Some(error))
+    .otherwise(() => None);
 
 /**
  * Returns the contained [`Ok`] value.
@@ -382,6 +393,16 @@ export const mapOrElse =
       .otherwise(({ error }) => fnWhenErr(error));
 
 /**
+ * Converts from {@linkcode Result `Result<T, E>`} to {@linkcode Option `Option<T>`}.
+ *
+ * Converts `self` into an {@linkcode Option `Option<T>`}, discarding the error, if any.
+ */
+export const ok = <T>(self: Result<T, unknown>): Option<T> =>
+  match(self)
+    .with({ _tag: "Ok" }, ({ value }) => Some(value))
+    .otherwise(() => None);
+
+/**
  * Returns `res` if the result is [`Err`], otherwise returns the [`Ok`] value of `self`.
  *
  * Arguments passed to `or` are eagerly evaluated; if you are passing the
@@ -546,8 +567,13 @@ export const unwrapOrElse =
       .otherwise(({ error }) => fn(error));
 
 export function tryCatch<T>(fn: () => T): Result<T, UnknownException>;
-export function tryCatch<T, E>(obj: { try: () => T; catch: (error: unknown) => E }): Result<T, E>;
-export function tryCatch<T, E>(fnOrObj: (() => T) | { try: () => T; catch: (error: unknown) => E }) {
+export function tryCatch<T, E>(obj: {
+  try: () => T;
+  catch: (error: unknown) => E;
+}): Result<T, E>;
+export function tryCatch<T, E>(
+  fnOrObj: (() => T) | { try: () => T; catch: (error: unknown) => E },
+) {
   if (typeof fnOrObj === "function") {
     try {
       return Ok(fnOrObj());
@@ -564,7 +590,10 @@ export function tryCatch<T, E>(fnOrObj: (() => T) | { try: () => T; catch: (erro
 }
 
 export function tryPromise<T>(fn: () => Promise<T>): Promise<Result<T, UnknownException>>;
-export function tryPromise<T, E>(obj: { try: () => Promise<T>; catch: (error: unknown) => E }): Promise<Result<T, E>>;
+export function tryPromise<T, E>(obj: {
+  try: () => Promise<T>;
+  catch: (error: unknown) => E;
+}): Promise<Result<T, E>>;
 export function tryPromise<T, E>(
   fnOrObj: (() => Promise<T>) | { try: () => Promise<T>; catch: (error: unknown) => E },
 ) {

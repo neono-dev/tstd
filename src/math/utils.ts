@@ -12,7 +12,8 @@
  * isAdult(66); // false
  * ```
  */
-export const isBetweenInclusive = (min: number, max: number) => (value: number) => value >= min && value <= max;
+export const isBetweenInclusive = (min: number, max: number) => (value: number) =>
+  value >= min && value <= max;
 
 /**
  * Checks if a number is between a minimum and a maximum value (exclusive).
@@ -28,4 +29,5 @@ export const isBetweenInclusive = (min: number, max: number) => (value: number) 
  * isAdult(64); // true
  * ```
  */
-export const isBetweenExclusive = (min: number, max: number) => (value: number) => value > min && value < max;
+export const isBetweenExclusive = (min: number, max: number) => (value: number) =>
+  value > min && value < max;

@@ -431,8 +431,12 @@ export const orElse =
  */
 export const transpose = <T, E>(self: Option<Result<T, E>>): Result<Option<T>, E> =>
   match(self)
-    .with({ _tag: "Some", value: P.when((value) => isOk(value)) }, ({ value }) => Ok(Some(value.value)))
-    .with({ _tag: "Some", value: P.when((value) => isErr(value)) }, ({ value }) => Err(value.error))
+    .with({ _tag: "Some", value: P.when((value) => isOk(value)) }, ({ value }) =>
+      Ok(Some(value.value)),
+    )
+    .with({ _tag: "Some", value: P.when((value) => isErr(value)) }, ({ value }) =>
+      Err(value.error),
+    )
     .otherwise(() => Ok(None));
 
 /**
@@ -507,9 +511,14 @@ export const unwrapOrElse =
  * expect(unzip(x)).toStrictEqual([Some(1), Some("hi")]);
  * expect(unzip(y)).toStrictEqual([None, None])
  */
-export const unzip = <T, U>(self: Option<[T, U]> | Option<readonly [T, U]>): [Option<T>, Option<U>] =>
+export const unzip = <T, U>(
+  self: Option<[T, U]> | Option<readonly [T, U]>,
+): [Option<T>, Option<U>] =>
   match(self)
-    .with({ _tag: "Some" }, ({ value: [a, b] }) => [Some(a), Some(b)] as [Option<T>, Option<U>])
+    .with(
+      { _tag: "Some" },
+      ({ value: [a, b] }) => [Some(a), Some(b)] as [Option<T>, Option<U>],
+    )
     .otherwise(() => [None, None]);
 
 /**

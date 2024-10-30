@@ -262,7 +262,10 @@ describe("Duration", () => {
       const duration1 = Duration.fromDays(1);
       const duration2 = Duration.fromHours(24);
 
-      const isGreaterThanOrEqual = pipe(duration1, Duration.isGreaterThanOrEqual(duration2));
+      const isGreaterThanOrEqual = pipe(
+        duration1,
+        Duration.isGreaterThanOrEqual(duration2),
+      );
 
       expect(isGreaterThanOrEqual).toBe(true);
     });

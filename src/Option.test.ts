@@ -297,7 +297,9 @@ describe("Option", () => {
 
       const other = Some(12);
 
-      expect(pipe(option, zipWith(other, Point.create))).toStrictEqual(Some(new Point(5, 12)));
+      expect(pipe(option, zipWith(other, Point.create))).toStrictEqual(
+        Some(new Point(5, 12)),
+      );
     });
 
     it("`zipWith` should return a `None` when other is `None`", () => {

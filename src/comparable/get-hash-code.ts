@@ -25,7 +25,9 @@ export function getHashCode(value: unknown): number {
       return hashString(value.toString());
 
     case "object":
-      return Array.isArray(value) ? hashArray(value) : hashObject(value as Record<string, unknown>);
+      return Array.isArray(value)
+        ? hashArray(value)
+        : hashObject(value as Record<string, unknown>);
 
     default:
       return 0; // Handles undefined and any unrecognized types

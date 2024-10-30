@@ -26,7 +26,8 @@ import {
  * forceAgeToBeBetween18And65(16); // 18
  * ```
  */
-export const clamp = (min: number, max: number) => (value: number) => Math.min(Math.max(value, min), max);
+export const clamp = (min: number, max: number) => (value: number) =>
+  Math.min(Math.max(value, min), max);
 
 /**
  * Clamps a number between the minimum and maximum values of a signed 8-bit (1 byte) integer.
